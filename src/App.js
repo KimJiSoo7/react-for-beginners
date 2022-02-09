@@ -18,8 +18,11 @@ function App() {
   }, [])
 
   function OnClickHandler(){
-    const amountToBuy = balance / coins[selectedCoin].quotes.USD.price;
-    return (<h3>{`You can buy the ${coins[selectedCoin].name} about ${amountToBuy}`}</h3>);
+    let amountToBuy = 0;
+    if(selectedCoin !== -1){
+       amountToBuy = balance / coins[selectedCoin].quotes.USD.price;
+    }
+    return selectedCoin === -1 ? null : (<h3>{`You can buy the ${coins[selectedCoin].name} about ${amountToBuy}`}</h3>);
   }
 
   console.log("rendered!");
@@ -36,7 +39,6 @@ function App() {
           </select>
         )
       }
-      <button onClick={OnClickHandler}>Invert</button>
       <hr/>
       {loading ? null : <OnClickHandler/>}
 
